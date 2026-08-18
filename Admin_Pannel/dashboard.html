@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>ACES Admin | Dashboard</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="app">
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <div class="brand-mark">ACES</div>
+                <div class="brand-copy"><strong>ACES</strong><small>Administration</small></div><button
+                    class="mobile-close" id="mobile-close">×</button>
+            </div>
+            <div class="workspace"><span class="workspace-label">WORKSPACE</span>
+                <div class="workspace-select">
+                    <div class="workspace-icon">A</div>
+                    <div><strong>ACES Website</strong><small>Content Management</small></div><span
+                        class="chevron">⌄</span>
+                </div>
+            </div>
+            <nav class="nav">
+                <div class="nav-group"><span class="nav-title">MAIN MENU</span><a class="nav-link active"
+                        href="dashboard.html"><span class="nav-icon">⌂</span>Dashboard</a><a class="nav-link "
+                        href="projects.html"><span class="nav-icon">▦</span>Projects <b class=nav-badge>100+</b></a><a
+                        class="nav-link " href="services.html"><span class="nav-icon">⚙</span>Services</a><a
+                        class="nav-link " href="news.html"><span class="nav-icon">▤</span>News</a><a class="nav-link "
+                        href="teams.html"><span class="nav-icon">♙</span>Teams</a></div>
+                <div class="nav-group"><span class="nav-title">SYSTEM</span><a class="nav-link" href="#"><span
+                            class="nav-icon">◉</span>Website <span class="external">↗</span></a><a class="nav-link"
+                        href="#"><span class="nav-icon">⚙</span>Settings</a></div>
+            </nav>
+            <div class="sidebar-bottom">
+                <div class="admin-profile">
+                    <div class="avatar">TB</div>
+                    <div class="admin-info"><strong>Admin User</strong><small>Administrator</small></div>
+                </div>
+            </div>
+        </aside>
+        <main class="main">
+            <header class="topbar"><button class="menu-toggle" id="menu-toggle">☰</button>
+                <div class="breadcrumb"><span>ACES</span><i>/</i><strong>Dashboard</strong></div>
+                <div class="topbar-actions"><button class="top-icon notification">♢<span></span></button>
+                    <div class="top-divider"></div>
+                    <div class="top-user">
+                        <div class="avatar small">TB</div>
+                        <div><strong>Admin User</strong><small>Administrator</small></div><span class="chevron">⌄</span>
+                    </div>
+                </div>
+            </header>
+            <div class="page-container">
+                <div class="page-header">
+                    <div><span class="page-kicker">OVERVIEW</span>
+                        <h1>Good morning, Admin.</h1>
+                        <p>Manage your ACES website content, projects, services, news and team members from one place.
+                        </p>
+                    </div>
+                    <div class="header-actions"><button class="btn btn-secondary" onclick="refresh()">↻
+                            Refresh</button><button class="btn btn-primary"
+                            onclick="toast('Website preview will open here.')">↗ View Website</button></div>
+                </div>
+                <section class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon icon-orange">▦</div><span class="stat-change">+12%</span>
+                        </div><span>Total Projects</span>
+                        <h2>100+</h2>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon icon-blue">⚙</div><span class="stat-change">Active</span>
+                        </div><span>Services</span>
+                        <h2>3</h2>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon icon-green">▤</div><span class="stat-change">Published</span>
+                        </div><span>News Articles</span>
+                        <h2>2</h2>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon icon-purple">♙</div><span class="stat-change">Active</span>
+                        </div><span>Team Members</span>
+                        <h2>4</h2>
+                    </div>
+                </section>
+                <section class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Recent Activities</h3>
+                                <p>Latest changes across the admin panel.</p>
+                            </div><button class="btn btn-secondary">View all</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity">
+                                <div class="activity-icon">🏗️</div>
+                                <div class="activity-text"><strong>Project updated</strong>
+                                    <p>DHA Multan Head Office was updated.</p><span class="activity-time">Today, 10:24
+                                        AM</span>
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-icon">⚙️</div>
+                                <div class="activity-text"><strong>Service published</strong>
+                                    <p>Structural Engineering is now visible.</p><span
+                                        class="activity-time">Yesterday</span>
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-icon">📰</div>
+                                <div class="activity-text"><strong>News article created</strong>
+                                    <p>A new company update was added.</p><span class="activity-time">2 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Quick Actions</h3>
+                                <p>Common content management tasks.</p>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="quick-grid"><a class="quick-action" href="projects.html">
+                                    <div class="quick-icon">＋</div><strong>Add Project</strong><small>Create a new
+                                        project portfolio item.</small>
+                                </a><a class="quick-action" href="services.html">
+                                    <div class="quick-icon">⚙</div><strong>Add Service</strong><small>Add a service
+                                        offered by ACES.</small>
+                                </a><a class="quick-action" href="news.html">
+                                    <div class="quick-icon">▤</div><strong>Write News</strong><small>Publish a new
+                                        company update.</small>
+                                </a><a class="quick-action" href="teams.html">
+                                    <div class="quick-icon">♙</div><strong>Add Team Member</strong><small>Create a
+                                        professional team profile.</small>
+                                </a></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <div class="modal-backdrop" id="modal-backdrop">
+        <div class="modal">
+            <div class="modal-header">
+                <div><span class="modal-eyebrow" id="modal-eyebrow"></span>
+                    <h2 id="modal-title"></h2>
+                </div><button class="modal-close" id="modal-close">×</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+            <div class="modal-footer"><button class="btn btn-secondary" id="modal-cancel">Cancel</button><button
+                    class="btn btn-primary" id="modal-save">Save</button></div>
+        </div>
+    </div>
+    <div class="toast" id="toast"><span class="toast-icon">✓</span><span id="toast-message"></span></div>
+    <script src="./js/common.js"></script>
+    <script src="./js/dashboard.js"></script>
+</body>
+
+</html>
