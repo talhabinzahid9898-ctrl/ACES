@@ -117,209 +117,97 @@
     </svg>
   </div>
   <div class="animsition">
-    <header class="header __js_fixed-header" id="header">
-      <div class="header__inner">
-        <!-- Logo-->
-        <a class="header__logo logo">
-          <img src="img/picture/logo.png" alt="ACES " height="70" width="100">
+    <header class="site-header inner-header">
+
+    <nav class="navbar">
+
+         <a href="index.html" class="Aces_logo">
+    <img src="https://res.cloudinary.com/v5hjn3a9/image/upload/v1786929058/logo.png" alt="ACES Logo">
+</a>
+
+       
+        <div class="navbar-menu">
+
+            <a href="index.html" class="nav-item">
+                Home
+            </a>
+
+            <a href="about.html" class="nav-item active">
+                About
+            </a>
+
+             <a href="projects.html" class="nav-item">
+                Projects
+            </a>
+           
+            <a href="team.html" class="nav-item">
+                Our Team
+            </a>
+
+            <a href="contact.html" class="nav-item">
+                Contact
+            </a>
+
+             <a href="news-listing.html" class="nav-item">
+                News
+            </a>
+
+        </div>
+
+        <div class="navbar-right">
+
+            <a href="contact.html" class="navbar-contact">
+                <span>Let's Talk</span>
+                <b>↗</b>
+            </a>
+
+            <button
+                class="mobile-menu-btn"
+                id="mobile-menu-btn"
+                type="button"
+                aria-label="Open menu"
+            >
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </nav>
+
+    <div class="mobile-menu" id="mobile-menu">
+
+        <a href="index.html" class="mobile-nav-item">
+            Home
         </a>
-        <div class="container"></div>
-        <!-- Burger-->
-        <button class="header__menu-toggle menu-toggle" type="button">
-          <span class="visually-hidden">Menu</span>
-        </button>
-      </div>
-    </header>
-    <!-- Site menu-->
-    <div class="mobile-canvas __js_mobile-canvas">
-      <button class="mobile-canvas__close" type="button">
-        <svg width="24" height="24">
-          <use xlink:href="#close"></use>
-        </svg>
-        <span class="visually-hidden">Close menu</span>
-      </button>
-      <!-- Lang switcher-->
-      <ul class="mobile-canvas__lang-switcher lang-switcher lang-switcher--menu">
-        <li class="lang-switcher__item">
-          <a class="lang-switcher__link lang-switcher__link--current">Eng</a>
-        </li>
-        <li class="lang-switcher__item">
-          <a class="lang-switcher__link" href="#">Fra</a>
-        </li>
-        <li class="lang-switcher__item">
-          <a class="lang-switcher__link" href="#">Ger</a>
-        </li>
-      </ul>
-      <nav class="mobile-canvas__nav navigation">
-        <ul class="navigation__list">
-          <li class="navigation__item">
-            <a class="navigation__link animsition-link" href="index.html">Home</a>
-            <!-- <div class="navigation__dropdown navigation__dropdown--columns">
-              <div class="navigation__dropdown-wrapper">
-                <div class="navigation__dropdown-column">
-                  <div class="navigation__dropdown-column-title">Light</div>
-                  <ul class="navigation__dropdown-list">
-                    <li class="navigation__dropdown-item navigation__dropdown-item--current">
-                      <a>Home Default</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="home-default-2.html">Home Default 2</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="home-interior.html">Home Interior</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="home-grid.html">Home Grid</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="home-parallax.html">Home Parallax</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="home-video.html">Home Video</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="navigation__dropdown-column">
-                  <div class="navigation__dropdown-column-title">Dark</div>
-                  <ul class="navigation__dropdown-list">
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="home-default-dark.html">Home Default Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="home-default-2-dark.html">Home Default 2 Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="home-interior-dark.html">Home Interior Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="home-video-dark.html">Home Video Dark</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div> -->
-          </li>
-          <li class="navigation__item navigation__item--current">
-            <a class="navigation__link animsition-link" href="about.html">About</a>
-          </li>
-          <li class="navigation__item">
-            <a class="navigation__link animsition-link" href="projects-grid.html">Projects</a>
-            <!-- <div class="navigation__dropdown navigation__dropdown--columns">
-              <div class="navigation__dropdown-wrapper">
-                <div class="navigation__dropdown-column">
-                  <div class="navigation__dropdown-column-title">Light</div>
-                  <ul class="navigation__dropdown-list">
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-grid.html">Projects Grid</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-grid-2.html">Projects Grid 2</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-masonry.html">Projects Masonry</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-masonry-2.html">Projects Masonry 2</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-carousel.html">Projects Carousel</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-detail.html">Projects Detail</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-detail-2.html">Projects Detail 2</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="navigation__dropdown-column">
-                  <div class="navigation__dropdown-column-title">Dark</div>
-                  <ul class="navigation__dropdown-list">
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-grid-dark.html">Projects Grid Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-grid-2-dark.html">Projects Grid 2 Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-masonry-dark.html">Projects Masonry Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-masonry-2-dark.html">Projects Masonry 2 Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-carousel-dark.html">Projects Carousel Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-detail-dark.html">Projects Detail Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="projects-detail-2-dark.html">Projects Detail 2 Dark</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div> -->
-          </li>
-          <li class="navigation__item">
-            <a class="navigation__link animsition-link" href="news-listing.html">News</a>
-            <!-- <div class="navigation__dropdown navigation__dropdown--columns">
-              <div class="navigation__dropdown-wrapper">
-                <div class="navigation__dropdown-column">
-                  <div class="navigation__dropdown-column-title">Light</div>
-                  <ul class="navigation__dropdown-list">
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="news-listing.html">News Listing</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="news-grid.html">News Grid</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="news-grid-2.html">News Grid 2</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="news-masonry.html">News Masonry</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="single-post.html">Single Post</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="single-post-2.html">Single Post 2</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="navigation__dropdown-column">
-                  <div class="navigation__dropdown-column-title">Dark</div>
-                  <ul class="navigation__dropdown-list">
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="news-listing-dark.html">News Listing Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="news-grid-dark.html">News Grid Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="news-grid-2-dark.html">News Grid 2 Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="news-masonry-dark.html">News Masonry Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="single-post-dark.html">Single Post Dark</a>
-                    </li>
-                    <li class="navigation__dropdown-item">
-                      <a class="animsition-link" href="single-post-2-dark.html">Single Post 2 Dark</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div> -->
-          </li>
-          <li class="navigation__item">
-            <a class="navigation__link animsition-link" href="contact.html">Contact</a>
-          </li>
-        </ul>
-      </nav>
+
+        <a href="about.html" class="mobile-nav-item">
+            About
+        </a>
+
+        <a href="services.html" class="mobile-nav-item">
+            Services
+        </a>
+
+        <a href="projects.html" class="mobile-nav-item">
+            Projects
+        </a>
+
+        <a href="team.html" class="mobile-nav-item">
+            Our Team
+        </a>
+
+        <a href="contact.html" class="mobile-nav-item">
+            Contact
+        </a>
+
+        <a href="contact.html" class="mobile-contact">
+            Let's Talk <span>↗</span>
+        </a>
+
     </div>
+
+</header>
     <main>
       <article class="article">
         <header class="article__header">

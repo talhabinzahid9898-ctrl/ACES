@@ -1,1 +1,541 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>ACES Admin | Teams</title><link rel="stylesheet" href="./css/style.css"></head><body><div class="app"><div class="sidebar-overlay" id="sidebar-overlay"></div><aside class="sidebar" id="sidebar"><div class="brand"><div class="brand-mark">ACES</div><div class="brand-copy"><strong>ACES</strong><small>Administration</small></div><button class="mobile-close" id="mobile-close">×</button></div><div class="workspace"><span class="workspace-label">WORKSPACE</span><div class="workspace-select"><div class="workspace-icon">A</div><div><strong>ACES Website</strong><small>Content Management</small></div><span class="chevron">⌄</span></div></div><nav class="nav"><div class="nav-group"><span class="nav-title">MAIN MENU</span><a class="nav-link " href="dashboard.html"><span class="nav-icon">⌂</span>Dashboard</a><a class="nav-link " href="projects.html"><span class="nav-icon">▦</span>Projects <b class=nav-badge>100+</b></a><a class="nav-link " href="services.html"><span class="nav-icon">⚙</span>Services</a><a class="nav-link " href="news.html"><span class="nav-icon">▤</span>News</a><a class="nav-link active" href="teams.html"><span class="nav-icon">♙</span>Teams</a></div><div class="nav-group"><span class="nav-title">SYSTEM</span><a class="nav-link" href="#"><span class="nav-icon">◉</span>Website <span class="external">↗</span></a><a class="nav-link" href="#"><span class="nav-icon">⚙</span>Settings</a></div></nav><div class="sidebar-bottom"><div class="admin-profile"><div class="avatar">TB</div><div class="admin-info"><strong>Admin User</strong><small>Administrator</small></div></div></div></aside><main class="main"><header class="topbar"><button class="menu-toggle" id="menu-toggle">☰</button><div class="breadcrumb"><span>ACES</span><i>/</i><strong>Teams</strong></div><div class="topbar-actions"><button class="top-icon notification">♢<span></span></button><div class="top-divider"></div><div class="top-user"><div class="avatar small">TB</div><div><strong>Admin User</strong><small>Administrator</small></div><span class="chevron">⌄</span></div></div></header><div class="page-container"><div class="page-header"><div><span class="page-kicker">PEOPLE</span><h1>Teams</h1><p>Manage professionals and leadership profiles displayed on the ACES website.</p></div><div class="header-actions"><button class="btn btn-secondary" onclick="refresh()">↻ Refresh</button><button class="btn btn-primary" id="add-team">+ Add Member</button></div></div><div class="content-toolbar card"><div class="search-box"><span>⌕</span><input id="search" placeholder="Search team members..."></div></div><br><div class="team-grid" id="team-grid"></div></div></main></div><div class="modal-backdrop" id="modal-backdrop"><div class="modal"><div class="modal-header"><div><span class="modal-eyebrow" id="modal-eyebrow"></span><h2 id="modal-title"></h2></div><button class="modal-close" id="modal-close">×</button></div><div class="modal-body" id="modal-body"></div><div class="modal-footer"><button class="btn btn-secondary" id="modal-cancel">Cancel</button><button class="btn btn-primary" id="modal-save">Save</button></div></div></div><div class="toast" id="toast"><span class="toast-icon">✓</span><span id="toast-message"></span></div><script src="./js/common.js"></script><script src="./js/teams.js"></script></body></html>
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>ACES Admin | Teams</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css">
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebar-overlay">
+    </div>
+
+
+    <aside
+        class="sidebar"
+        id="sidebar">
+
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                ACES
+            </div>
+
+            <div class="brand-copy">
+
+                <strong>
+                    ACES
+                </strong>
+
+                <small>
+                    Administration
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="workspace">
+
+            <span class="workspace-label">
+                WORKSPACE
+            </span>
+
+
+            <div class="workspace-select">
+
+                <div class="workspace-icon">
+                    A
+                </div>
+
+                <div>
+
+                    <strong>
+                        ACES Website
+                    </strong>
+
+                    <small>
+                        Content Management
+                    </small>
+
+                </div>
+
+                <span class="chevron">
+                    ⌄
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="nav">
+
+            <div class="nav-group">
+
+                <span class="nav-title">
+                    MAIN MENU
+                </span>
+
+
+                <a
+                    class="nav-link"
+                    href="dashboard.html">
+
+                    <span class="nav-icon">
+                        ⌂
+                    </span>
+
+                    Dashboard
+
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="projects.html">
+
+                    <span class="nav-icon">
+                        ▦
+                    </span>
+
+                    Projects
+
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="services.html">
+
+                    <span class="nav-icon">
+                        ⚙
+                    </span>
+
+                    Services
+
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="blog.html">
+
+                    <span class="nav-icon">
+                        ▤
+                    </span>
+
+                    Blogs
+
+                </a>
+
+
+                <a
+                    class="nav-link active"
+                    href="teams.html">
+
+                    <span class="nav-icon">
+                        ♙
+                    </span>
+
+                    Teams
+
+                </a>
+
+            </div>
+
+
+            <div class="nav-group">
+
+                <span class="nav-title">
+                    SYSTEM
+                </span>
+
+
+                <a
+                    class="nav-link"
+                    href="#">
+
+                    Website
+
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="#">
+
+                    Settings
+
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="admin-profile">
+
+                <div class="avatar">
+                    TB
+                </div>
+
+                <div class="admin-info">
+
+                    <strong>
+                        Admin User
+                    </strong>
+
+                    <small>
+                        Administrator
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <header class="topbar">
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                type="button">
+
+                ☰
+
+            </button>
+
+
+            <div class="breadcrumb">
+
+                <span>
+                    ACES
+                </span>
+
+                <i>
+                    /
+                </i>
+
+                <strong>
+                    Teams
+                </strong>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <div class="top-user">
+
+                    <div class="avatar small">
+                        TB
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Admin User
+                        </strong>
+
+                        <small>
+                            Administrator
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PAGE
+        ================================================== -->
+
+        <div class="page-container">
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <span class="page-kicker">
+                        TEAM MANAGEMENT
+                    </span>
+
+                    <h1>
+                        Teams
+                    </h1>
+
+                    <p>
+                        Manage ACES team members,
+                        positions and professional profiles.
+                    </p>
+
+                </div>
+
+
+                <div class="header-actions">
+
+                    <button
+                        class="btn btn-secondary"
+                        id="refresh-teams"
+                        type="button">
+
+                        ↻ Refresh
+
+                    </button>
+
+
+                    <button
+                        class="btn btn-primary"
+                        id="add-team"
+                        type="button">
+
+                        + Add Team Member
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 TABLE
+            ================================================== -->
+
+            <div class="content-card">
+
+
+                <div class="content-toolbar">
+
+                    <div class="search-box">
+
+                        <span>
+                            ⌕
+                        </span>
+
+
+                        <input
+                            type="text"
+                            id="search"
+                            placeholder="Search team members..."
+                            autocomplete="off">
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-wrap">
+
+
+                    <table class="data-table">
+
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Photo
+                                </th>
+
+                                <th>
+                                    Name
+                                </th>
+
+                                <th>
+                                    Position
+                                </th>
+
+                                <th>
+                                    Department
+                                </th>
+
+                                <th>
+                                    Order
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <!-- VERY IMPORTANT -->
+
+                        <tbody id="team-body">
+
+                        </tbody>
+
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+    class="modal-backdrop"
+    id="modal-backdrop">
+
+
+    <div class="modal">
+
+
+        <div class="modal-header">
+
+            <div>
+
+                <span
+                    class="modal-eyebrow"
+                    id="modal-eyebrow">
+
+                    TEAM
+
+                </span>
+
+
+                <h2 id="modal-title">
+                    Add Team Member
+                </h2>
+
+            </div>
+
+
+            <button
+                class="modal-close"
+                id="modal-close"
+                type="button">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <!-- JAVASCRIPT INSERTS FORM HERE -->
+
+        <div
+            class="modal-body"
+            id="modal-body">
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="btn btn-secondary"
+                id="modal-cancel"
+                type="button">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                class="btn btn-primary"
+                id="modal-save"
+                type="button">
+
+                Save
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    class="toast"
+    id="toast">
+
+    <span class="toast-icon">
+        ✓
+    </span>
+
+
+    <span id="toast-message">
+    </span>
+
+</div>
+
+
+<script
+    src="./js/teams.js">
+</script>
+
+
+</body>
+
+</html>

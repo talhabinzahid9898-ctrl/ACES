@@ -1617,7 +1617,7 @@ textarea.custom-input {
 ===================================================== */
 
 .site-header {
-    position: absolute;
+    position:absolute;
 
     top: 0;
     left: 0;
@@ -1626,7 +1626,7 @@ textarea.custom-input {
 
     z-index: 1000;
 
-    color: white;
+    color:white;
 }
 
 
@@ -1660,6 +1660,20 @@ textarea.custom-input {
         );
 }
 
+/* =====================================================
+   INNER PAGE HEADER (solid, not overlaying content)
+===================================================== */
+
+.inner-header {
+    position: relative; /* no longer floats over content */
+    color: var(--aces-dark);
+}
+
+.inner-header .navbar {
+    background: var(--aces-white);
+    backdrop-filter: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
 
 /* =====================================================
    LOGO
