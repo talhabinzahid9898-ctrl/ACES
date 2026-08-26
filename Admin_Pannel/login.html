@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ACES Admin Login</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/auth.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="logo-container">
+
+                <img
+                    src="https://res.cloudinary.com/v5hjn3a9/image/upload/v1786929058/logo.png"
+                    alt="ACES Logo"
+                >
+
+            </div>
+
+
+            <h1>ACES Admin</h1>
+
+            <p class="subtitle">
+                Administrator Login
+            </p>
+
+
+            <form id="loginForm">
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Admin email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Password"
+                        required
+                    >
+
+                </div>
+
+
+                <div
+                    id="loginMessage"
+                    class="message"
+                ></div>
+
+
+                <button
+                    type="submit"
+                    id="loginButton"
+                >
+                    Login
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+
+    <script src="./js/login.js"></script>
+
+</body>
+
+</html>

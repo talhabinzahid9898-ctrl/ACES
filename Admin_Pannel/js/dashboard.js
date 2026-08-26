@@ -1,215 +1,275 @@
-"use strict";
+/* =========================================================
+   ACES ADMIN DASHBOARD
+   ========================================================= */
+
+const API_URL = "/api/dashboard";
+
+/* =========================================================
+   INITIALIZE DASHBOARD
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    loadDashboard();
+
+    setupSidebar();
+
+    setupModal();
+
+});
 
 
-// =====================================================
-// API
-// =====================================================
-
-const DASHBOARD_API =
-    "/api/dashboard";
-
-
-// =====================================================
-// LOAD DASHBOARD
-// =====================================================
+/* =========================================================
+   LOAD DASHBOARD
+========================================================= */
 
 async function loadDashboard() {
 
     try {
 
-        const response =
-            await fetch(DASHBOARD_API);
+        const response = await fetch(API_URL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
 
 
-        const result =
-            await response.json();
+        /* ---------------------------------------------
+           CHECK HTTP RESPONSE
+        --------------------------------------------- */
 
-
-        console.log(
-            "DASHBOARD RESPONSE:",
-            result
-        );
-
-
-        if (
-            !response.ok ||
-            !result.success
-        ) {
+        if (!response.ok) {
 
             throw new Error(
-                result.message ||
-                "Failed to load dashboard"
+                "Dashboard API returned HTTP " + response.status
             );
+
         }
 
 
-        // -------------------------------------------------
-        // UPDATE STATISTICS
-        // -------------------------------------------------
+        /* ---------------------------------------------
+           CONVERT RESPONSE TO JSON
+        --------------------------------------------- */
 
-        updateStats(
-            result.data.stats
-        );
+        const result = await response.json();
 
 
-        // -------------------------------------------------
-        // UPDATE ACTIVITIES
-        // -------------------------------------------------
+        console.log("DASHBOARD RESPONSE:", result);
 
-        renderActivities(
-            result.data.activities
-        );
+
+        /* ---------------------------------------------
+           CHECK API SUCCESS
+        --------------------------------------------- */
+
+        if (!result.success) {
+
+            throw new Error(
+                result.message || "Failed to load dashboard data."
+            );
+
+        }
+
+
+        /* ---------------------------------------------
+           GET DASHBOARD DATA
+        --------------------------------------------- */
+
+        const dashboardData = result.data || {};
+
+        const stats = dashboardData.stats || {};
+
+        const activities = dashboardData.activities || [];
+
+
+        /* ---------------------------------------------
+           UPDATE STATISTICS
+        --------------------------------------------- */
+
+        updateStatistics(stats);
+
+
+        /* ---------------------------------------------
+           UPDATE RECENT ACTIVITIES
+        --------------------------------------------- */
+
+        renderActivities(activities);
 
 
     } catch (error) {
 
-        console.error(
-            "DASHBOARD ERROR:",
-            error
-        );
+        console.error("DASHBOARD LOAD ERROR:", error);
+
+
+        /* ---------------------------------------------
+           SHOW ERROR IN ACTIVITIES SECTION
+        --------------------------------------------- */
+
+        const activityContainer =
+            document.getElementById("recent-activities");
+
+
+        if (activityContainer) {
+
+            activityContainer.innerHTML = `
+                <div class="activity">
+
+                    <div class="activity-icon">
+                        ⚠
+                    </div>
+
+                    <div class="activity-text">
+
+                        <strong>
+                            Failed to load dashboard
+                        </strong>
+
+                        <p>
+                            ${escapeHtml(error.message)}
+                        </p>
+
+                    </div>
+
+                </div>
+            `;
+
+        }
+
+
+        /* ---------------------------------------------
+           SHOW TOAST IF AVAILABLE
+        --------------------------------------------- */
+
+        if (typeof toast === "function") {
+
+            toast("Unable to load dashboard data.");
+
+        }
 
     }
+
 }
 
 
-// =====================================================
-// UPDATE STATISTICS
-// =====================================================
+/* =========================================================
+   UPDATE STATISTICS
+========================================================= */
 
-function updateStats(stats) {
+function updateStatistics(stats) {
+
+    /*
+       Your HTML currently has:
+
+       1. Total Projects
+       2. Services
+       3. News Articles
+       4. Team Members
+
+       We select the stat-card elements in the same order.
+    */
+
 
     const statCards =
-        document.querySelectorAll(
-            ".stat-card"
+        document.querySelectorAll(".stat-card");
+
+
+    if (!statCards || statCards.length < 4) {
+
+        console.warn(
+            "Dashboard stat cards were not found."
         );
 
-
-    if (!statCards.length) {
-
         return;
+
     }
 
 
-    // -------------------------------------------------
-    // PROJECTS
-    // -------------------------------------------------
+    /* ---------------------------------------------
+       TOTAL PROJECTS
+    --------------------------------------------- */
 
-    if (statCards[0]) {
-
-        const value =
-            statCards[0].querySelector("h2");
-
-        if (value) {
-
-            value.textContent =
-                stats.projects + "+";
-
-        }
-    }
+    const totalProjects =
+        Number(stats.totalProjects || 0);
 
 
-    // -------------------------------------------------
-    // SERVICES
-    // -------------------------------------------------
-
-    if (statCards[1]) {
-
-        const value =
-            statCards[1].querySelector("h2");
-
-        if (value) {
-
-            value.textContent =
-                stats.services;
-
-        }
-    }
+    statCards[0]
+        .querySelector("h2")
+        .textContent = totalProjects;
 
 
-    // -------------------------------------------------
-    // BLOGS
-    // -------------------------------------------------
+    /* ---------------------------------------------
+       ACTIVE SERVICES
+    --------------------------------------------- */
 
-    if (statCards[2]) {
-
-        const value =
-            statCards[2].querySelector("h2");
-
-        if (value) {
-
-            value.textContent =
-                stats.blogs;
-
-        }
-    }
+    const activeServices =
+        Number(stats.activeServices || 0);
 
 
-    // -------------------------------------------------
-    // TEAM MEMBERS
-    // -------------------------------------------------
+    statCards[1]
+        .querySelector("h2")
+        .textContent = activeServices;
 
-    if (statCards[3]) {
 
-        const value =
-            statCards[3].querySelector("h2");
+    /* ---------------------------------------------
+       PUBLISHED BLOGS
+    --------------------------------------------- */
 
-        if (value) {
+    const publishedBlogs =
+        Number(stats.publishedBlogs || 0);
 
-            value.textContent =
-                stats.teams;
 
-        }
-    }
+    statCards[2]
+        .querySelector("h2")
+        .textContent = publishedBlogs;
+
+
+    /* ---------------------------------------------
+       ACTIVE TEAM MEMBERS
+    --------------------------------------------- */
+
+    const activeTeamMembers =
+        Number(stats.activeTeamMembers || 0);
+
+
+    statCards[3]
+        .querySelector("h2")
+        .textContent = activeTeamMembers;
+
 }
 
 
-// =====================================================
-// RENDER RECENT ACTIVITIES
-// =====================================================
+/* =========================================================
+   RENDER RECENT ACTIVITIES
+========================================================= */
 
-function renderActivities(
-    activities
-) {
+function renderActivities(activities) {
 
-    const card =
-        document.querySelector(
-            ".dashboard-grid .card:first-child"
+    const container =
+        document.getElementById("recent-activities");
+
+
+    if (!container) {
+
+        console.warn(
+            "#recent-activities was not found."
         );
 
-
-    if (!card) {
-
         return;
+
     }
 
 
-    const body =
-        card.querySelector(
-            ".card-body"
-        );
+    /* ---------------------------------------------
+       NO ACTIVITIES
+    --------------------------------------------- */
 
+    if (!Array.isArray(activities) || activities.length === 0) {
 
-    if (!body) {
-
-        return;
-    }
-
-
-    // -------------------------------------------------
-    // NO ACTIVITIES
-    // -------------------------------------------------
-
-    if (
-        !Array.isArray(activities) ||
-        activities.length === 0
-    ) {
-
-        body.innerHTML = `
-
+        container.innerHTML = `
             <div class="activity">
 
                 <div class="activity-icon">
-                    ℹ️
+                    ✓
                 </div>
 
                 <div class="activity-text">
@@ -219,290 +279,521 @@ function renderActivities(
                     </strong>
 
                     <p>
-                        No content has been added yet.
+                        There are no recent changes yet.
                     </p>
 
                 </div>
 
             </div>
-
         `;
 
         return;
+
     }
 
 
-    // -------------------------------------------------
-    // ACTIVITIES
-    // -------------------------------------------------
+    /* ---------------------------------------------
+       CREATE ACTIVITIES
+    --------------------------------------------- */
 
-    body.innerHTML =
-        activities
-            .map(activity => {
+    container.innerHTML = activities
+        .map(function (activity) {
 
-                const icon =
-                    getActivityIcon(
-                        activity.activity_type
-                    );
+            return createActivityHTML(activity);
 
+        })
+        .join("");
 
-                const activityName =
-                    getActivityName(
-                        activity.activity_type
-                    );
-
-
-                return `
-
-                    <div class="activity">
-
-                        <div class="activity-icon">
-                            ${icon}
-                        </div>
-
-
-                        <div class="activity-text">
-
-                            <strong>
-                                ${escapeHTML(
-                                    activityName
-                                )}
-                            </strong>
-
-
-                            <p>
-                                ${escapeHTML(
-                                    activity.title
-                                )}
-                            </p>
-
-
-                            <span
-                                class="activity-time">
-
-                                ${formatActivityDate(
-                                    activity.activity_date
-                                )}
-
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            })
-            .join("");
 }
 
 
-// =====================================================
-// ACTIVITY ICON
-// =====================================================
+/* =========================================================
+   CREATE SINGLE ACTIVITY HTML
+========================================================= */
 
-function getActivityIcon(
-    type
-) {
+function createActivityHTML(activity) {
 
-    switch (type) {
+    const type =
+        activity.activity_type || "Activity";
+
+
+    const title =
+        activity.activity_title || "Untitled";
+
+
+    const date =
+        activity.activity_date;
+
+
+    const formattedDate =
+        formatActivityDate(date);
+
+
+    const icon =
+        getActivityIcon(type);
+
+
+    return `
+        <div class="activity">
+
+            <div class="activity-icon">
+                ${icon}
+            </div>
+
+            <div class="activity-text">
+
+                <strong>
+                    ${escapeHtml(type)}:
+                    ${escapeHtml(title)}
+                </strong>
+
+                <p>
+                    ${escapeHtml(formattedDate)}
+                </p>
+
+            </div>
+
+        </div>
+    `;
+
+}
+
+
+/* =========================================================
+   ACTIVITY ICON
+========================================================= */
+
+function getActivityIcon(type) {
+
+    const normalizedType =
+        String(type).toLowerCase();
+
+
+    switch (normalizedType) {
 
         case "project":
-            return "🏗️";
+            return "▦";
 
         case "service":
-            return "⚙️";
+            return "⚙";
 
         case "blog":
-            return "📰";
+            return "▤";
 
         case "team":
+        case "team member":
             return "♙";
 
         default:
-            return "📌";
+            return "●";
+
     }
+
 }
 
 
-// =====================================================
-// ACTIVITY NAME
-// =====================================================
+/* =========================================================
+   FORMAT ACTIVITY DATE
+========================================================= */
 
-function getActivityName(
-    type
-) {
+function formatActivityDate(dateValue) {
 
-    switch (type) {
+    if (!dateValue) {
 
-        case "project":
-            return "Project updated";
+        return "Date unavailable";
 
-        case "service":
-            return "Service updated";
-
-        case "blog":
-            return "Blog article updated";
-
-        case "team":
-            return "Team member updated";
-
-        default:
-            return "Content updated";
-    }
-}
-
-
-// =====================================================
-// FORMAT DATE
-// =====================================================
-
-function formatActivityDate(
-    date
-) {
-
-    if (!date) {
-
-        return "-";
     }
 
 
-    const d =
-        new Date(date);
+    const date =
+        new Date(dateValue);
 
 
-    if (
-        isNaN(
-            d.getTime()
-        )
-    ) {
+    if (isNaN(date.getTime())) {
 
-        return "-";
+        return "Date unavailable";
+
     }
 
 
-    return d.toLocaleString(
-        "en-GB",
-        {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-        }
-    );
+    return date.toLocaleString("en-PK", {
+
+        day: "2-digit",
+
+        month: "short",
+
+        year: "numeric",
+
+        hour: "2-digit",
+
+        minute: "2-digit",
+
+        hour12: true
+
+    });
+
 }
 
 
-// =====================================================
-// ESCAPE HTML
-// =====================================================
-
-function escapeHTML(
-    value
-) {
-
-    return String(
-        value ?? ""
-    )
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-}
-
-
-// =====================================================
-// REFRESH
-// =====================================================
+/* =========================================================
+   REFRESH DASHBOARD
+========================================================= */
 
 async function refresh() {
 
-    await loadDashboard();
+    const button =
+        document.querySelector(
+            ".page-header .btn-secondary"
+        );
 
-    showToast(
-        "Dashboard refreshed."
-    );
+
+    if (button) {
+
+        const originalText =
+            button.innerHTML;
+
+
+        button.disabled = true;
+
+        button.innerHTML = "↻ Loading...";
+
+
+        try {
+
+            await loadDashboard();
+
+        } finally {
+
+            button.disabled = false;
+
+            button.innerHTML = originalText;
+
+        }
+
+    } else {
+
+        await loadDashboard();
+
+    }
+
 }
 
 
-// =====================================================
-// TOAST
-// =====================================================
+/* =========================================================
+   SIDEBAR / MOBILE MENU
+========================================================= */
 
-function showToast(
-    message
-) {
+function setupSidebar() {
 
-    const toast =
-        document.getElementById(
-            "toast"
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    const overlay =
+        document.getElementById("sidebar-overlay");
+
+
+    const menuToggle =
+        document.getElementById("menu-toggle");
+
+
+    const mobileClose =
+        document.getElementById("mobile-close");
+
+
+    /* ---------------------------------------------
+       OPEN SIDEBAR
+    --------------------------------------------- */
+
+    if (menuToggle) {
+
+        menuToggle.addEventListener(
+            "click",
+            function () {
+
+                if (sidebar) {
+
+                    sidebar.classList.add("open");
+
+                }
+
+
+                if (overlay) {
+
+                    overlay.classList.add("show");
+
+                }
+
+            }
         );
 
-
-    const toastMessage =
-        document.getElementById(
-            "toast-message"
-        );
-
-
-    if (
-        !toast ||
-        !toastMessage
-    ) {
-
-        return;
     }
 
 
-    toastMessage.textContent =
-        message;
+    /* ---------------------------------------------
+       CLOSE SIDEBAR
+    --------------------------------------------- */
+
+    if (mobileClose) {
+
+        mobileClose.addEventListener(
+            "click",
+            closeSidebar
+        );
+
+    }
 
 
-    toast.classList.add(
-        "show"
-    );
+    if (overlay) {
+
+        overlay.addEventListener(
+            "click",
+            closeSidebar
+        );
+
+    }
 
 
-    setTimeout(
-        () => {
+    function closeSidebar() {
 
-            toast.classList.remove(
-                "show"
-            );
+        if (sidebar) {
 
-        },
-        3000
-    );
+            sidebar.classList.remove("open");
+
+        }
+
+
+        if (overlay) {
+
+            overlay.classList.remove("show");
+
+        }
+
+    }
+
 }
 
 
-// =====================================================
-// INITIAL LOAD
-// =====================================================
+/* =========================================================
+   MODAL SETUP
+========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    loadDashboard
-);
+function setupModal() {
+
+    const modalBackdrop =
+        document.getElementById("modal-backdrop");
+
+
+    const modalClose =
+        document.getElementById("modal-close");
+
+
+    const modalCancel =
+        document.getElementById("modal-cancel");
+
+
+    if (modalClose) {
+
+        modalClose.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
+
+
+    if (modalCancel) {
+
+        modalCancel.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
+
+
+    if (modalBackdrop) {
+
+        modalBackdrop.addEventListener(
+            "click",
+            function (event) {
+
+                if (event.target === modalBackdrop) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal() {
+
+    const modalBackdrop =
+        document.getElementById("modal-backdrop");
+
+
+    if (modalBackdrop) {
+
+        modalBackdrop.classList.remove("show");
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN MODAL
+========================================================= */
+
+function openModal(title, eyebrow, body) {
+
+    const modalBackdrop =
+        document.getElementById("modal-backdrop");
+
+
+    const modalTitle =
+        document.getElementById("modal-title");
+
+
+    const modalEyebrow =
+        document.getElementById("modal-eyebrow");
+
+
+    const modalBody =
+        document.getElementById("modal-body");
+
+
+    if (modalTitle) {
+
+        modalTitle.textContent =
+            title || "";
+
+    }
+
+
+    if (modalEyebrow) {
+
+        modalEyebrow.textContent =
+            eyebrow || "";
+
+    }
+
+
+    if (modalBody) {
+
+        modalBody.innerHTML =
+            body || "";
+
+    }
+
+
+    if (modalBackdrop) {
+
+        modalBackdrop.classList.add("show");
+
+    }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message) {
+
+    const toastElement =
+        document.getElementById("toast");
+
+
+    const toastMessage =
+        document.getElementById("toast-message");
+
+
+    if (!toastElement) {
+
+        console.log(message);
+
+        return;
+
+    }
+
+
+    if (toastMessage) {
+
+        toastMessage.textContent =
+            message;
+
+    }
+
+
+    toastElement.classList.add("show");
+
+
+    clearTimeout(
+        window.dashboardToastTimer
+    );
+
+
+    window.dashboardToastTimer =
+        setTimeout(function () {
+
+            toastElement.classList.remove("show");
+
+        }, 3000);
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+   Prevents API data from being interpreted as HTML.
+========================================================= */
+
+function escapeHtml(value) {
+
+    if (value === null || value === undefined) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   OPTIONAL: MAKE FUNCTIONS AVAILABLE GLOBALLY
+========================================================= */
+
+window.loadDashboard = loadDashboard;
+
+window.refresh = refresh;
+
+window.toast = toast;
+
+window.openModal = openModal;
+
+window.closeModal = closeModal;

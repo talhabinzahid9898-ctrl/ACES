@@ -3,90 +3,565 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>ACES Admin | Projects</title>
+
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-    <div class="app">
-        <div class="sidebar-overlay" id="sidebar-overlay"></div>
-        <aside class="sidebar" id="sidebar">
-            <div class="brand">
-                <div class="brand-mark">ACES</div>
-                <div class="brand-copy"><strong>ACES</strong><small>Administration</small></div><button
-                    class="mobile-close" id="mobile-close">×</button>
-            </div>
-            <div class="workspace"><span class="workspace-label">WORKSPACE</span>
-                <div class="workspace-select">
-                    <div class="workspace-icon">A</div>
-                    <div><strong>ACES Website</strong><small>Content Management</small></div><span
-                        class="chevron">⌄</span>
-                </div>
-            </div>
-            <nav class="nav">
-                <div class="nav-group"><span class="nav-title">MAIN MENU</span><a class="nav-link "
-                        href="dashboard.html"><span class="nav-icon">⌂</span>Dashboard</a><a class="nav-link active"
-                        href="projects.html"><span class="nav-icon">▦</span>Projects <b class=nav-badge>100+</b></a><a
-                        class="nav-link " href="services.html"><span class="nav-icon">⚙</span>Services</a><a
-                        class="nav-link " href="blog.html"><span class="nav-icon">▤</span>Blogs</a><a class="nav-link "
-                        href="teams.html"><span class="nav-icon">♙</span>Teams</a></div>
-                <div class="nav-group"><span class="nav-title">SYSTEM</span><a class="nav-link" href="#"><span
-                            class="nav-icon">◉</span>Website <span class="external">↗</span></a><a class="nav-link"
-                        href="#"><span class="nav-icon">⚙</span>Settings</a></div>
-            </nav>
-            <div class="sidebar-bottom">
-                <div class="admin-profile">
-                    <div class="avatar">TB</div>
-                    <div class="admin-info"><strong>Admin User</strong><small>Administrator</small></div>
-                </div>
-            </div>
-        </aside>
-        <main class="main">
-            <header class="topbar"><button class="menu-toggle" id="menu-toggle">☰</button>
-                <div class="breadcrumb"><span>ACES</span><i>/</i><strong>Projects</strong></div>
-                <div class="topbar-actions"><button class="top-icon notification">♢<span></span></button>
-                    <div class="top-divider"></div>
-                    <div class="top-user">
-                        <div class="avatar small">TB</div>
-                        <div><strong>Admin User</strong><small>Administrator</small></div><span class="chevron">⌄</span>
-                    </div>
-                </div>
-            </header>
-            <div class="page-container">
-                <div class="page-header">
-                    <div><span class="page-kicker">PROJECT PORTFOLIO</span>
-                        <h1>Projects</h1>
-                        <p>Manage the projects displayed in the ACES portfolio.</p>
-                    </div>
-                    <div class="header-actions"><button class="btn btn-secondary" onclick="refresh()">↻
-                            Refresh</button><button class="btn btn-primary" id="add-project">+ Add Project</button>
-                    </div>
-                </div>
-                <div class="content-toolbar card">
-                    <div class="search-box"><span>⌕</span><input id="search" placeholder="Search projects..."></div>
-                    <div class="toolbar-right"><button class="btn btn-secondary">All Projects</button><button
-                            class="btn btn-secondary">Published</button></div>
-                </div><br>
-                <div class="project-grid" id="project-grid"></div>
-            </div>
-        </main>
+
+<div class="app">
+
+    <!-- ==============================
+         SIDEBAR
+    =============================== -->
+
+    <div class="sidebar-overlay"
+         id="sidebar-overlay">
     </div>
-    <div class="modal-backdrop" id="modal-backdrop">
-        <div class="modal">
-            <div class="modal-header">
-                <div><span class="modal-eyebrow" id="modal-eyebrow"></span>
-                    <h2 id="modal-title"></h2>
-                </div><button class="modal-close" id="modal-close">×</button>
+
+    <aside class="sidebar"
+           id="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                ACES
             </div>
-            <div class="modal-body" id="modal-body"></div>
-            <div class="modal-footer"><button class="btn btn-secondary" id="modal-cancel">Cancel</button><button
-                    class="btn btn-primary" id="modal-save">Save</button></div>
+
+            <div class="brand-copy">
+
+                <strong>
+                    ACES
+                </strong>
+
+                <small>
+                    Administration
+                </small>
+
+            </div>
+
+            <button
+                class="mobile-close"
+                id="mobile-close"
+                type="button">
+
+                ×
+
+            </button>
+
         </div>
+
+
+        <!-- ==============================
+             WORKSPACE
+        =============================== -->
+
+        <div class="workspace">
+
+            <span class="workspace-label">
+                WORKSPACE
+            </span>
+
+            <div class="workspace-select">
+
+                <div class="workspace-icon">
+                    A
+                </div>
+
+                <div>
+
+                    <strong>
+                        ACES Website
+                    </strong>
+
+                    <small>
+                        Content Management
+                    </small>
+
+                </div>
+
+                <span class="chevron">
+                    ⌄
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==============================
+             NAVIGATION
+        =============================== -->
+
+        <nav class="nav">
+
+            <div class="nav-group">
+
+                <span class="nav-title">
+                    MAIN MENU
+                </span>
+
+
+                <!-- Dashboard -->
+
+                <a
+                    class="nav-link"
+                    href="dashboard.html">
+
+                    <span class="nav-icon">
+                        ⌂
+                    </span>
+
+                    Dashboard
+
+                </a>
+
+
+                <!-- Projects -->
+
+                <a
+                    class="nav-link active"
+                    href="projects.html">
+
+                    <span class="nav-icon">
+                        ▦
+                    </span>
+
+                    Projects
+
+                </a>
+
+
+                <!-- Services -->
+
+                <a
+                    class="nav-link"
+                    href="services.html">
+
+                    <span class="nav-icon">
+                        ⚙
+                    </span>
+
+                    Services
+
+                </a>
+
+
+                <!-- Blogs -->
+
+                <a
+                    class="nav-link"
+                    href="blog.html">
+
+                    <span class="nav-icon">
+                        ▤
+                    </span>
+
+                    Blogs
+
+                </a>
+
+
+                <!-- Teams -->
+
+                <a
+                    class="nav-link"
+                    href="teams.html">
+
+                    <span class="nav-icon">
+                        ♙
+                    </span>
+
+                    Teams
+
+                </a>
+
+            </div>
+
+
+            <!-- ==============================
+                 SYSTEM
+            =============================== -->
+
+            <div class="nav-group">
+
+                <span class="nav-title">
+                    SYSTEM
+                </span>
+
+
+                <a
+                    class="nav-link"
+                    href="#">
+
+                    <span class="nav-icon">
+                        ◉
+                    </span>
+
+                    Website
+
+                    <span class="external">
+                        ↗
+                    </span>
+
+                </a>
+
+
+               <button
+        type="button"
+        id="logoutBtn"
+        class="logout-btn"
+    >
+        <span>↪</span>
+        Logout
+    </button>
+
+            </div>
+
+        </nav>
+
+
+        <!-- ==============================
+             SIDEBAR BOTTOM
+        =============================== -->
+
+        <div class="sidebar-bottom">
+
+            <div class="admin-profile">
+
+                <div class="avatar">
+                    TB
+                </div>
+
+                <div class="admin-info">
+
+                    <strong>
+                        Admin User
+                    </strong>
+
+                    <small>
+                        Administrator
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- ==============================
+             TOPBAR
+        =============================== -->
+
+        <header class="topbar">
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                type="button">
+
+                ☰
+
+            </button>
+
+
+            <div class="breadcrumb">
+
+                <span>
+                    ACES
+                </span>
+
+                <i>
+                    /
+                </i>
+
+                <strong>
+                    Projects
+                </strong>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+
+                <!-- Notification -->
+
+                <button
+                    class="top-icon notification"
+                    type="button">
+
+                    ♢
+
+                </button>
+
+
+                <div class="top-divider">
+                </div>
+
+
+                <!-- User -->
+
+                <div class="top-user">
+
+                    <div class="avatar small">
+                        TB
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Admin User
+                        </strong>
+
+                        <small>
+                            Administrator
+                        </small>
+
+                    </div>
+
+                    <span class="chevron">
+                        ⌄
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PAGE CONTAINER
+        ================================================== -->
+
+        <div class="page-container">
+
+
+            <!-- ==============================
+                 PAGE HEADER
+            =============================== -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <span class="page-kicker">
+                        PROJECT MANAGEMENT
+                    </span>
+
+                    <h1>
+                        Projects
+                    </h1>
+
+                    <p>
+                        Manage ACES architectural,
+                        engineering and consultancy projects.
+                    </p>
+
+                </div>
+
+
+                <div class="header-actions">
+
+
+                    <!-- Refresh -->
+
+                    <button
+                        class="btn btn-secondary"
+                        id="refresh-projects"
+                        type="button">
+
+                        ↻ Refresh
+
+                    </button>
+
+
+                    <!-- Add -->
+
+                    <button
+                        class="btn btn-primary"
+                        id="add-project"
+                        type="button">
+
+                        + Add Project
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PROJECT TABLE
+            ================================================== -->
+
+            <div class="content-card">
+
+
+                <!-- TOOLBAR -->
+
+                <div class="content-toolbar">
+
+                    <div class="search-box">
+
+                        <span>
+                            ⌕
+                        </span>
+
+                        <input
+                            type="text"
+                            id="search"
+                            placeholder="Search projects..."
+                            autocomplete="off">
+
+                    </div>
+
+                </div>
+
+
+                <!-- TABLE -->
+
+                <div class="table-wrap">
+
+                    <table class="data-table">
+
+                       <table class="data-table">
+
+    <thead>
+
+        <tr>
+
+            <th>Image</th>
+            <th>Project</th>
+            <th>Category</th>
+            <th>Client</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Completion</th>
+            <th>Actions</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody id="project-body"></tbody>
+
+</table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     ADD / EDIT PROJECT MODAL
+========================================================= -->
+
+<div
+    class="modal-backdrop"
+    id="modal-backdrop">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <span
+                    class="modal-eyebrow"
+                    id="modal-eyebrow">
+                    PROJECT
+                </span>
+
+                <h2 id="modal-title">
+                    Add Project
+                </h2>
+
+            </div>
+
+            <button
+                class="modal-close"
+                id="modal-close"
+                type="button">
+                ×
+            </button>
+
+        </div>
+
+        <div
+            class="modal-body"
+            id="modal-body">
+        </div>
+
+        <div class="modal-footer">
+
+            <button
+                class="btn btn-secondary"
+                id="modal-cancel"
+                type="button">
+                Cancel
+            </button>
+
+            <button
+                class="btn btn-primary"
+                id="modal-save"
+                type="button">
+                Save
+            </button>
+
+        </div>
+
     </div>
-    <div class="toast" id="toast"><span class="toast-icon">✓</span><span id="toast-message"></span></div>
-    <script src="./js/common.js"></script>
-    <script src="./js/projects.js"></script>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    class="toast"
+    id="toast">
+
+    <span class="toast-icon">
+        ✓
+    </span>
+
+    <span id="toast-message">
+    </span>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+<script src="./js/auth.js"></script>
+<script src="./js/projects.js"></script>
 </body>
 
 </html>

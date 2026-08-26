@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ACES OTP Verification</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/auth.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="logo-container">
+
+                <img
+                    src="https://res.cloudinary.com/v5hjn3a9/image/upload/v1786929058/logo.png"
+                    alt="ACES Logo"
+                >
+
+            </div>
+
+
+            <h1>Verify Login</h1>
+
+            <p class="subtitle">
+
+                Enter the 6-digit verification
+                code sent to your admin email.
+
+            </p>
+
+
+            <form id="otpForm">
+
+
+                <div class="form-group">
+
+                    <label for="otp">
+                        Verification Code
+                    </label>
+
+                    <input
+                        type="text"
+                        id="otp"
+                        maxlength="6"
+                        inputmode="numeric"
+                        autocomplete="one-time-code"
+                        placeholder="000000"
+                        required
+                    >
+
+                </div>
+
+
+                <div
+                    id="otpMessage"
+                    class="message"
+                ></div>
+
+
+                <button
+                    type="submit"
+                    id="verifyButton"
+                >
+                    Verify OTP
+                </button>
+
+
+            </form>
+
+
+            <button
+                type="button"
+                class="back-button"
+                onclick="goBackToLogin()"
+            >
+                Back to Login
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+    <script src="./js/otp.js"></script>
+
+</body>
+
+</html>

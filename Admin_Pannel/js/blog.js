@@ -1030,7 +1030,7 @@ if (
 ) {
 
     const maxVideoSize =
-        500 * 1024 * 1024;
+        100 * 1024 * 1024;
 
     const videoFile =
         video.files[0];
@@ -1038,7 +1038,7 @@ if (
     if (videoFile.size > maxVideoSize) {
 
         alert(
-            "Video size must not exceed 500 MB."
+            "Video size must not exceed 100 MB."
         );
 
         video.value = "";
