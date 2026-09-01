@@ -1101,3 +1101,158 @@ document.addEventListener(
 
     }
 );
+
+(function () {
+
+    const AUTOPLAY_DELAY = 2200; // ms between auto-advances
+
+    const sliderEl = document.getElementById("partnersSlider");
+    const dotsEl   = document.getElementById("partnersDots");
+
+    let autoplayTimer = null;
+    let resumeTimer = null;
+
+    init();
+
+    function init() {
+        if (!sliderEl) return;
+
+        bindDrag();
+        bindHoverPause();
+
+        requestAnimationFrame(() => {
+            buildDots();
+            startAutoplay();
+        });
+
+        window.addEventListener("resize", () => {
+            buildDots();
+            updateActiveDot();
+        });
+    }
+
+    function getStep() {
+        const logo = sliderEl.querySelector(".partner-logo");
+        if (!logo) return 0;
+        const gap = parseFloat(getComputedStyle(sliderEl).gap) || 0;
+        return logo.offsetWidth + gap;
+    }
+
+    function getPageCount() {
+        const step = getStep();
+        if (!step) return 0;
+        const perView = Math.max(1, Math.round(sliderEl.clientWidth / step));
+        const total = sliderEl.children.length;
+        return Math.max(1, Math.ceil(total / perView));
+    }
+
+    function buildDots() {
+        dotsEl.innerHTML = "";
+        const pageCount = getPageCount();
+
+        for (let i = 0; i < pageCount; i++) {
+            const dot = document.createElement("button");
+            dot.className = "partners-dot";
+            dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+            dot.addEventListener("click", () => {
+                goToPage(i);
+                restartAutoplayAfterInteraction();
+            });
+            dotsEl.appendChild(dot);
+        }
+
+        updateActiveDot();
+        sliderEl.removeEventListener("scroll", updateActiveDot);
+        sliderEl.addEventListener("scroll", updateActiveDot, { passive: true });
+    }
+
+    function goToPage(pageIndex) {
+        const step = getStep();
+        const perView = Math.max(1, Math.round(sliderEl.clientWidth / step));
+        sliderEl.scrollTo({ left: pageIndex * perView * step, behavior: "smooth" });
+    }
+
+    function updateActiveDot() {
+        const step = getStep();
+        if (!step) return;
+
+        const perView = Math.max(1, Math.round(sliderEl.clientWidth / step));
+        const pageWidth = perView * step;
+        const currentPage = Math.round(sliderEl.scrollLeft / pageWidth);
+
+        dotsEl.querySelectorAll(".partners-dot").forEach((d, i) => {
+            d.classList.toggle("active", i === currentPage);
+        });
+    }
+
+    function startAutoplay() {
+        stopAutoplay();
+        autoplayTimer = setInterval(autoAdvance, AUTOPLAY_DELAY);
+    }
+
+    function stopAutoplay() {
+        clearInterval(autoplayTimer);
+        clearTimeout(resumeTimer);
+    }
+
+    function autoAdvance() {
+        const maxScroll = sliderEl.scrollWidth - sliderEl.clientWidth - 2;
+
+        if (sliderEl.scrollLeft >= maxScroll) {
+            sliderEl.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+            const step = getStep();
+            sliderEl.scrollBy({ left: step, behavior: "smooth" });
+        }
+    }
+
+    function restartAutoplayAfterInteraction() {
+        stopAutoplay();
+        resumeTimer = setTimeout(startAutoplay, AUTOPLAY_DELAY);
+    }
+
+    function bindHoverPause() {
+        sliderEl.addEventListener("mouseenter", stopAutoplay);
+        sliderEl.addEventListener("mouseleave", startAutoplay);
+    }
+
+    function bindDrag() {
+        let isDown = false;
+        let startX = 0;
+        let scrollStart = 0;
+
+        sliderEl.addEventListener("mousedown", (e) => {
+            isDown = true;
+            sliderEl.classList.add("dragging");
+            startX = e.pageX;
+            scrollStart = sliderEl.scrollLeft;
+            stopAutoplay();
+        });
+
+        window.addEventListener("mouseup", () => {
+            if (!isDown) return;
+            isDown = false;
+            sliderEl.classList.remove("dragging");
+            restartAutoplayAfterInteraction();
+        });
+
+        window.addEventListener("mousemove", (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const walk = e.pageX - startX;
+            sliderEl.scrollLeft = scrollStart - walk;
+        });
+
+        sliderEl.addEventListener("touchstart", () => {
+            sliderEl.classList.add("dragging");
+            stopAutoplay();
+        }, { passive: true });
+
+        sliderEl.addEventListener("touchend", () => {
+            sliderEl.classList.remove("dragging");
+            updateActiveDot();
+            restartAutoplayAfterInteraction();
+        });
+    }
+
+})();
