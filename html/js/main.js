@@ -1256,3 +1256,35 @@ document.addEventListener(
     }
 
 })();
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const toggle = document.getElementById("about-nav-toggle");
+    const mobileMenu = document.getElementById("about-nav-mobile");
+
+    if (!toggle || !mobileMenu) {
+        return;
+    }
+
+    toggle.addEventListener("click", function () {
+
+        mobileMenu.classList.toggle("active");
+
+    });
+
+
+    /* Close menu when a link is clicked */
+
+    const mobileLinks = mobileMenu.querySelectorAll(
+        ".about-nav-mobile-link, .about-nav-mobile-talk"
+    );
+
+    mobileLinks.forEach(function (link) {
+
+        link.addEventListener("click", function () {
+            mobileMenu.classList.remove("active");
+        });
+
+    });
+
+});

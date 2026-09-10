@@ -157,6 +157,10 @@
                 About
             </a>
 
+            <a href="services.html" class="nav-item">
+                Services
+            </a>
+
              <a href="projects-grid.html" class="nav-item">
                 Projects
             </a>
@@ -170,7 +174,7 @@
             </a>
 
              <a href="news-listing.html" class="nav-item">
-                News
+                Blogs
             </a>
 
         </div>
@@ -225,6 +229,10 @@
 
         <a href="contact.html" class="mobile-nav-item">
             Contact
+        </a>
+
+        <a href="news-listing.html" class="mobile-nav-item">
+            Blogs
         </a>
 
         <a href="contact.html" class="mobile-contact">
@@ -703,8 +711,7 @@
 
     </div>
 
-</section>
-
+       </section>
 
      <!-- Statistics -->
       <div class="webpage__statistics statistics" data-aos="fade">
@@ -773,37 +780,28 @@
       </div>
 
       <!-- Projectss -->
-     <section class="featured-projects" data-aos="fade">
-    <div class="container">
+<section class="featured-projects">
+  <div class="container">
+    <div class="fp-header">
+      <div>
+        <div class="fp-label"><span></span> OUR WORK</div>
+        <h2 class="fp-heading">Featured <span>Projects</span></h2>
+      </div>
 
-        <!-- ================= HEADER ================= -->
-        <div class="fp-header">
-            <div class="fp-header-left">
-                <div class="fp-label"><span></span> PORTFOLIO EXCELLENCE</div>
-                <h2 class="fp-heading">Featured <span>Projects</span></h2>
-            </div>
-
-            <div class="fp-header-right">
-                <div class="fp-tabs" id="fpTabs">
-                    <button class="fp-tab active" data-category="all">All Works</button>
-                    <!-- category tabs injected by JS -->
-                </div>
-                <a href="/projects" class="fp-view-all">View All Project <span>→</span></a>
-            </div>
-        </div>
-
-        <!-- ================= SLIDER ================= -->
-        <div class="fp-slider-wrap">
-
-            <div class="fp-slider" id="fpSlider">
-                <div class="fp-loading" id="fpLoading">Loading projects...</div>
-                <!-- cards injected by JS -->
-            </div>
-
-        </div>
-        <!-- ================= DOTS ================= -->
-        <div class="fp-dots" id="fpDots"></div>
+      <div class="fp-header-right">
+        <div class="fp-tabs" id="fpTabs"></div>
+        <a href="/projects-grid.html" class="fp-view-all">Explore Projects <span>→</span></a>
+      </div>
     </div>
+
+    <div class="fp-slider-wrap">
+      <div class="fp-slider" id="fpSlider">
+        <div class="fp-loading" id="fpLoading">Loading projects...</div>
+      </div>
+    </div>
+
+    <div class="fp-dots" id="fpDots"></div>
+  </div>
 </section>
 
       <!-- Partners-->
@@ -867,11 +865,16 @@
         </div>
 
         <!-- ================= LIST ================= -->
-        <div class="blog-list" id="blogList">
+        <div class="blog-list" id="blogList" data-limit="5">
             <div class="blog-loading" id="blogLoading">Loading articles...</div>
             <!-- rows injected by JS -->
         </div>
-
+        <div class="blog-modal-overlay" id="blogModalOverlay">
+  <div class="blog-modal" role="dialog" aria-modal="true" aria-labelledby="blogModalTitle">
+    <button type="button" class="blog-modal-close" id="blogModalClose" aria-label="Close">&times;</button>
+    <div class="blog-modal-body" id="blogModalBody"></div>
+  </div>
+</div>
     </div>
 </section>
 
@@ -906,7 +909,7 @@
     </div>
 
 </section>
-    </main>
+</main>
    <!-- =========================================================
      ACES FOOTER BLOCK
 ========================================================= -->
@@ -1092,19 +1095,6 @@
   <script src="js/packery-mode.pkgd.min.js"></script>
   <script src="js/swiper-bundle.min.js"></script>
   <script src="js/animsition.min.js"></script>
-  <!-- revolution-->
-  <script src="js/revolution/jquery.themepunch.tools.min.js"></script>
-  <script src="js/revolution/jquery.themepunch.revolution.min.js"></script>
-  <script src="js/revolution/extensions/revolution.extension.actions.min.js"></script>
-  <script src="js/revolution/extensions/revolution.extension.carousel.min.js"></script>
-  <script src="js/revolution/extensions/revolution.extension.kenburn.min.js"></script>
-  <script src="js/revolution/extensions/revolution.extension.layeranimation.min.js"></script>
-  <script src="js/revolution/extensions/revolution.extension.migration.min.js"></script>
-  <script src="js/revolution/extensions/revolution.extension.navigation.min.js"></script>
-  <script src="js/revolution/extensions/revolution.extension.parallax.min.js"></script>
-  <script src="js/revolution/extensions/revolution.extension.slideanims.min.js"></script>
-  <script src="js/revolution/extensions/revolution.extension.video.min.js"></script>
-  <script src="js/revolution/init.js"></script>
   <!-- JavaScript-->
   <script src="js/main.js"></script>
   <script src="js/service.js"></script>
